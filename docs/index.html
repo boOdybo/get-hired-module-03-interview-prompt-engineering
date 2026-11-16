@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#f3fafb" name="theme-color"/>
+<title>GET HIRED | Module 03 — Prompt Engineering for Interview Preparation</title>
+<style>
+:root{--ink:#0a3145;--muted:#557281;--teal:#0a8b85;--blue:#286c9e;--bg:#f3fafb;--line:#b9dddd;--navy:#07354a;--gold:#fdf1d8;--paper:#fff;--soft:#e8f8f5}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"Cairo","IBM Plex Sans Arabic",Tahoma,Arial,sans-serif;direction:rtl;color:var(--ink);background:var(--bg)}
+button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:#0a657e;font-weight:800}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #e59c26;outline-offset:2px}
+#app{height:100dvh;display:flex;flex-direction:column}
+.topbar{height:auto;min-height:54px;padding:8px clamp(10px,2vw,28px);display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border-bottom:1px solid #d5e9e7;z-index:5}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;color:#0b6870;font-size:clamp(12px,1vw,17px)}
+.brand-mark{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#0b8b85;color:#fff;font-weight:1000}
+.modebar{display:flex;gap:6px;flex-wrap:wrap}
+.modebar button,.top-actions button{border:1px solid #c5dfdc;background:#fff;color:#16485b;border-radius:10px;padding:8px 12px;font-weight:800;font-size:clamp(12px,.95vw,15px)}
+.modebar button.active{background:#0a7776;color:white;border-color:#0a7776}
+.top-actions{display:flex;gap:7px;align-items:center}
+.top-actions button{padding:8px 10px}
+#deck{height:calc(100dvh - 112px);position:relative;overflow:hidden}
+.slide{display:none;position:absolute;inset:0;overflow:auto;overscroll-behavior:contain;background:radial-gradient(ellipse 75% 60% at 8% 0%,#d9f3f1,transparent 75%),linear-gradient(120deg,#f5fcfc,#fff 58%,#edf8f8);padding:clamp(16px,3vw,54px) clamp(18px,4vw,76px) 26px}
+.slide.active{display:flex;flex-direction:column;animation:slidein .32s ease}
+@keyframes slidein{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.slide header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-shrink:0;font-weight:850;color:#0a6c70;font-size:clamp(12px,1vw,18px);margin-bottom:clamp(7px,1.2vh,18px)}
+.mark{width:38px;height:38px;border:2px solid #0b8d86;border-radius:12px;display:inline-grid;place-items:center;font-weight:900;margin-left:8px;background:#fff}
+.pill{border:1px solid #b9dcd7;background:#e8f8f5;padding:6px 12px;border-radius:999px;font-weight:850}
+.heading{margin-bottom:clamp(10px,1.6vh,22px);flex-shrink:0}
+h1{font-size:clamp(29px,3.25vw,58px);line-height:1.2;margin:0 0 7px;font-weight:900;letter-spacing:-.5px}
+.subtitle{font-size:clamp(16px,1.28vw,24px);color:#4b6d7e;margin:0;line-height:1.45}
+.body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:clamp(12px,1.5vh,20px)}
+.body>*{max-width:100%}
+.body p,.body li{font-size:clamp(17px,1.35vw,26px);line-height:1.5}
+.body p{margin:5px 0}
+.panel{background:white;border:1px solid var(--line);border-radius:20px;padding:clamp(16px,1.8vw,28px);box-shadow:0 9px 35px #053a4c0d}
+.panel h3{font-size:clamp(21px,1.75vw,34px);margin:0 0 12px}
+.panel p,.panel li{font-size:clamp(16px,1.2vw,23px)}
+.panel.mint{background:#e6f7f3}.panel.blue{background:#eaf3fb}.panel.gold{background:#fff3d9}.panel.lavender{background:#f3efff}.panel.accent{background:#e8f5ff}
+.callout{background:#dff4ef;border-right:6px solid #078e88;border-radius:13px;padding:13px 18px;font-size:clamp(16px,1.15vw,22px);line-height:1.55}
+.callout.warning{background:#fff1df;border-color:#d98a2c;color:#67420f}
+.cols-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.hero-layout{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:28px}
+.eyebrow{letter-spacing:.08em;color:#0d8d86;font-size:clamp(14px,1.2vw,20px);font-weight:900}
+.hero-title{font-size:clamp(36px,4vw,70px);line-height:1.25;margin:16px 0;font-weight:950}
+.hero-title em{font-style:normal;color:#098d87}
+.lead{font-size:clamp(19px,1.5vw,28px);color:#476a79;line-height:1.65}
+.hero-visual{background:#fff;border:1px solid var(--line);border-radius:24px;padding:14px;box-shadow:0 12px 35px #063a4c10}
+.hero-visual svg{width:100%;height:auto;max-height:48vh}
+.visual-caption{text-align:center;color:#52727e;font-size:clamp(13px,1vw,17px);padding:8px}
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.tag-row span{font-size:clamp(13px,1vw,17px);border-radius:12px;background:#dff4ef;padding:8px 11px;font-weight:850}
+.path-grid,.mistake-grid,.bank-grid,.question-map,.result-grid,.evaluation-grid,.format-examples,.constraint-list,.tone-spectrum,.deliverables{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.path-card,.mistake-grid>div,.bank-grid>div,.question-map>div,.result-card,.evaluation-grid>div,.format-examples>div,.constraint-list>div,.tone-card{background:#fff;border:1px solid #c5e2df;border-radius:17px;padding:17px}
+.path-card b,.mistake-grid b,.bank-grid b,.question-map b,.result-card b,.evaluation-grid b,.format-examples b,.constraint-list b,.tone-card b{color:#0a7776;font-size:clamp(17px,1.25vw,23px)}
+.path-card h3{font-size:clamp(21px,1.5vw,28px);margin:7px 0}
+.path-card p,.mistake-grid p,.bank-grid p,.question-map p,.result-card p,.evaluation-grid p,.format-examples span,.constraint-list p,.tone-card p{font-size:clamp(15px,1.08vw,20px);line-height:1.5}
+.path-card{background:linear-gradient(145deg,#fff,#f0faf9)}
+.outcome-list{display:grid;gap:12px}
+.outcome-list>div{display:flex;align-items:flex-start;gap:14px;background:#fff;border:1px solid #c7e2df;border-radius:15px;padding:12px 16px}
+.outcome-list>div>span{width:40px;height:40px;display:grid;place-items:center;flex-shrink:0;border-radius:12px;background:#0a8b85;color:#fff;font-weight:900}
+.outcome-list b{font-size:clamp(17px,1.2vw,23px)}.outcome-list p{font-size:clamp(15px,1.05vw,19px);margin:2px 0}
+.quote-panel{background:#fff;border:2px solid #c5dfdc;border-radius:20px;padding:22px}
+.quote-panel.weak{background:#fff4e9;border-color:#e6c5a4}.quote-panel.strong{background:#eaf8f2;border-color:#b8decb}
+.quote-panel label,.task-head span,.duel-label{font-size:14px;font-weight:900;color:#0a7776;letter-spacing:.06em}
+.quote-panel h3{font:700 clamp(21px,1.6vw,30px)/1.4 Arial,sans-serif;direction:ltr;text-align:left}
+.quote-panel ul{padding-right:22px}
+.star-flow,.advanced-prompt-flow,.iteration-flow,.organise-flow{display:flex;align-items:stretch;justify-content:center;gap:9px;flex-wrap:wrap}
+.star-node{flex:1;min-width:130px;max-width:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;background:#fff;border:2px solid #c5dfdc;border-radius:18px;padding:14px}
+.star-node>b,.star-node b{font-size:42px;font-weight:1000}
+.star-node strong{font-size:clamp(18px,1.35vw,25px)}.star-node span{font-size:clamp(15px,1vw,19px);color:#486b79}.star-node small{font-size:14px;color:#5d7882}
+.star-node.s{background:#eaf3ff;border-color:#9fc6e8;color:#245e91}.star-node.t{background:#e9f7eb;border-color:#a9d7ae;color:#3b7948}.star-node.a{background:#fff4df;border-color:#edce91;color:#9a6713}.star-node.r{background:#f0ecff;border-color:#c5b8f2;color:#6652a8}
+.star-flow i,.iteration-flow i,.organise-flow i{align-self:center;font-style:normal;color:#078c84;font-size:36px;font-weight:900}
+.example-line{background:#fff;border-right:5px solid #0a8b85;border-radius:12px;padding:14px 18px;font-size:clamp(17px,1.3vw,24px)}
+.translation{color:#56727d;font-size:clamp(15px,1.05vw,20px)!important}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.compare-box{background:#fff;border:1px solid #c5dfdc;border-radius:18px;padding:20px}
+.compare-box.accent{background:#eaf5ff}.compare-box label{font-weight:900;color:#0a7776}.compare-box h3{font-size:clamp(21px,1.5vw,28px)}
+.action-ladder{display:grid;gap:12px}
+.action-ladder>div{background:#fff;border:1px solid #c5dfdc;border-radius:15px;padding:12px 17px}
+.action-ladder>div:nth-child(1){background:#fff3e8}.action-ladder>div:nth-child(2){background:#f0f7fb}.action-ladder>div:nth-child(3){background:#e8f7f1}
+.action-ladder b{font-size:clamp(16px,1.1vw,20px)}.action-ladder p{font:600 clamp(17px,1.2vw,23px)/1.5 Arial,sans-serif;text-align:left;direction:ltr}.action-ladder small{color:#57737f;font-size:15px}
+.result-grid{grid-template-columns:repeat(3,1fr)}
+.result-card small{color:#597580;font-size:14px}
+.story-card{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.story-card>div{background:#fff;border:1px solid #c5dfdc;border-radius:15px;padding:15px}
+.story-card p{font-size:clamp(15px,1.08vw,20px);line-height:1.55}
+.s-label{color:#286c9e}.t-label{color:#43834d}.a-label{color:#a56c0b}.r-label{color:#6e59ae}
+.english{font-family:Arial,sans-serif;direction:ltr;text-align:left}
+.mistake-grid small,.question-map small{color:#0a7776;font-size:15px;font-weight:800}
+.advanced-prompt-flow .ap{flex:1;min-width:125px;max-width:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:15px 10px;border-radius:17px;border:2px solid #c5dfdc;background:#fff;gap:5px;text-align:center}
+.ap b{font-size:clamp(20px,1.6vw,30px)}.ap span{font-weight:850}.ap small{font-size:14px;color:#5a7782}
+.ap.role{background:#e8f4ff;border-color:#9cc6e8}.ap.context{background:#eaf7eb;border-color:#acd6ad}.ap.tone{background:#fff4e2;border-color:#eed097}.ap.format{background:#f0ecff;border-color:#c4b7f0}.ap.constraint{background:#fff0ed;border-color:#edb8ad}
+.translation-box{background:#fff;border:1px solid #c5dfdc;border-radius:14px;padding:14px 18px;font-size:clamp(16px,1.15vw,22px)}
+.prompt-wrap{background:#fff;border:1px solid #b9dddd;border-radius:17px;padding:14px 16px}
+.prompt-label{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#0a7776;font-weight:900;font-size:13px;letter-spacing:.07em}
+.copy-btn,.secondary-btn{border:1px solid #b9d9d6;background:#f5fbfa;color:#0b6570;border-radius:10px;padding:8px 12px;font-weight:850}
+.prompt{white-space:pre-wrap;overflow-wrap:anywhere;text-align:left;direction:ltr;font:600 clamp(16px,1.18vw,22px)/1.55 "Courier New",monospace;background:#f4f8fb;border-radius:12px;padding:14px;color:#163d52;margin:12px 0 0}
+.builder{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.builder-fields{display:grid;gap:9px}
+.builder-fields label,.bank-entry label{display:grid;gap:5px;font-size:14px;font-weight:900;color:#0b6b70}
+.builder-fields input,.builder-fields textarea,.bank-entry textarea{width:100%;border:1px solid #b9d9d6;border-radius:10px;background:#fff;padding:9px 11px;color:#183e50;direction:ltr;text-align:left;font:15px/1.45 Arial,sans-serif}
+.builder-fields textarea{min-height:72px;resize:vertical}
+.builder-output{background:#fff;border:1px solid #b9dddd;border-radius:15px;padding:14px;min-width:0}
+.builder-output pre{white-space:pre-wrap;overflow-wrap:anywhere;text-align:left;direction:ltr;font:15px/1.5 "Courier New",monospace;min-height:200px;background:#f4f8fb;border-radius:10px;padding:12px}
+.primary-btn{border:0;background:#087f7a;color:#fff;border-radius:11px;padding:11px 16px;font-weight:900}
+.speech-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.speech-card{background:#fff3e9;border:1px solid #e8c8aa;border-radius:18px;padding:18px}
+.speech-card.good{background:#eaf8f2;border-color:#b8decb}
+.speech-card label{font-size:13px;font-weight:900;color:#0a7776}
+.speech-card p{font:600 clamp(17px,1.2vw,22px)/1.55 Arial,sans-serif;direction:ltr;text-align:left}
+.followups{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.followups>div{background:#fff;border:1px solid #c5dfdc;border-radius:15px;padding:13px}
+.followups b{color:#0a7776}.followups p{font:600 clamp(15px,1.08vw,20px)/1.5 Arial,sans-serif;direction:ltr;text-align:left}
+.followups small{color:#57727d;font-size:14px}
+.organise-flow>div{flex:1;min-width:125px;background:#eaf8f4;border:1px solid #b9dcd7;border-radius:15px;padding:15px;text-align:center}
+.organise-flow b{display:block;font-size:clamp(16px,1.2vw,22px)}.organise-flow span{color:#57727d;font-size:14px}
+.folder-example{background:#fff;border:1px solid #c5dfdc;border-radius:15px;padding:13px 18px;font:600 17px/1.8 Arial,sans-serif;direction:ltr;text-align:left}
+.folder-example .indent{padding-left:25px;color:#466b7a}
+.demo-steps{display:grid;gap:10px}
+.demo-steps>div{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #c5dfdc;border-radius:14px;padding:10px 15px}
+.demo-steps>div>b{width:36px;height:36px;display:grid;place-items:center;border-radius:11px;background:#0a8b85;color:#fff;flex-shrink:0}
+.demo-steps strong{font-size:clamp(17px,1.2vw,22px)}.demo-steps p{font-size:clamp(14px,1vw,18px);margin:0}
+.task-panel{background:#fff;border:1px solid #bddbd7;border-radius:20px;padding:20px}
+.task-head{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #d9eae7;padding-bottom:10px;margin-bottom:10px}
+.task-head b{font-size:clamp(20px,1.5vw,28px)}
+.task-panel ol{padding-right:24px}.task-panel li{margin:7px 0;font-size:clamp(16px,1.15vw,22px)}
+.evidence{background:#e6f7f3;border-radius:12px;padding:12px 15px;font-size:clamp(15px,1.08vw,20px);font-weight:800}
+.duel-layout{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}
+.duel-card{background:#fff4e9;border:2px solid #e8c6a5;border-radius:18px;padding:17px}
+.duel-card.winner{background:#eaf8f2;border-color:#b6ddc9}
+.duel-card h3{margin:7px 0;font-size:clamp(19px,1.4vw,26px)}
+.duel-card p{font:600 clamp(15px,1.1vw,21px)/1.5 Arial,sans-serif;direction:ltr;text-align:left}
+.duel-card small{color:#54717c;font-size:14px}.duel-vs{font-size:25px;font-weight:1000;color:#0a8b85}
+.rubric{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rubric>div{display:grid;grid-template-columns:1fr auto;gap:3px 12px;background:#fff;border:1px solid #c5dfdc;border-radius:13px;padding:12px}
+.rubric b{font-size:clamp(16px,1.15vw,21px)}.rubric span{color:#597580;font-size:14px}.rubric strong{grid-row:span 2;color:#0a7776;font-size:20px}
+.challenge-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.challenge-list>div{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid #c5dfdc;border-radius:14px;padding:12px}
+.challenge-list b{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#e0f5f1;color:#087d77}
+.challenge-list span{font-size:clamp(15px,1.08vw,20px)}
+.quiz{display:grid;gap:12px}
+.quiz-q{background:#fff;border:1px solid #c5dfdc;border-radius:15px;padding:14px}
+.quiz-q>b{display:block;font-size:clamp(16px,1.2vw,22px);margin-bottom:9px}
+.quiz-q button{margin:4px;border:1px solid #c1dedb;background:#f6fbfa;border-radius:9px;padding:8px 12px;font-size:15px}
+.quiz-q button.correct{background:#ddf4e6;border-color:#75bd8a}.quiz-q button.incorrect{background:#fff0e8;border-color:#e0a17d}
+.feedback{font-size:15px!important;color:#52717c;margin:5px 0 0!important}
+.deliverable-map{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.deliverable{border:1px solid #c5dfdc;border-radius:16px;padding:16px;background:#fff}
+.deliverable label{font-size:12px;font-weight:900;letter-spacing:.07em;color:#0a7776}
+.deliverable h3{font-size:clamp(19px,1.4vw,26px);margin:7px 0}
+.deliverable p{font-size:clamp(15px,1.05vw,19px)}
+.deliverable.ai{border-top:5px solid #078c84}.deliverable.soft{border-top:5px solid #286c9e}.deliverable.english{border-top:5px solid #bd8b35}
+.homework{background:#fff;border:1px solid #c5dfdc;border-radius:20px;padding:20px}
+.homework h3{font-size:clamp(22px,1.6vw,30px);margin-top:0}
+.homework li{font-size:clamp(16px,1.15vw,22px);margin:8px 0}
+.homework-evidence{background:#e7f6f1;padding:13px;border-radius:12px;font-size:clamp(15px,1.1vw,21px)}
+.closing{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.closing>div{background:#fff;border:1px solid #c5dfdc;border-radius:15px;padding:15px;text-align:center}
+.closing b{display:block;font-size:clamp(18px,1.5vw,28px);color:#087f79}.closing span{font-size:clamp(13px,1vw,18px);color:#56737e}
+.closing-line{text-align:center;font-size:clamp(27px,3vw,48px);line-height:1.4;color:#0a6870;margin:10px 0}
+.bank-builder{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bank-entry{background:#fff;border:1px solid #c5dfdc;border-radius:13px;padding:10px}
+.bank-entry textarea{min-height:105px;resize:vertical}
+.bank-actions{grid-column:1/-1;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.bank-actions span{font-size:14px;color:#55727d}
+.study-extra,.trainer-note{display:none}
+body.mode-study .study-extra,body.mode-trainer .study-extra{display:block}
+body.mode-trainer .trainer-note{display:block}
+.extra-box{background:#fff;border:1px dashed #8fc6c0;border-radius:14px;padding:13px 16px;margin-top:12px;font-size:clamp(14px,1.05vw,19px);line-height:1.55}
+.trainer-note{background:#fff8e9;border:1px solid #e9d4a8;border-radius:13px;padding:12px 16px;margin-top:10px;font-size:clamp(13px,1vw,18px);line-height:1.5}
+.navbar{height:58px;background:#fff;border-top:1px solid #d5e9e7;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px clamp(10px,2vw,28px);z-index:5}
+.navbar button{border:1px solid #c5dfdc;background:#fff;border-radius:11px;padding:8px 15px;font-weight:900;color:#16485b}
+.navbar button.primary{background:#087f7a;color:#fff;border-color:#087f7a}
+.nav-center{display:flex;align-items:center;gap:12px;flex:1;max-width:620px}
+.progress{height:8px;background:#e4f0ee;border-radius:20px;overflow:hidden;flex:1}.progress>span{display:block;height:100%;background:#0a8b85;width:0;transition:width .25s}
+.counter{font-weight:900;color:#426675;white-space:nowrap}
+#mode-label{font-size:13px;color:#5c7781;font-weight:800}
+@media(max-width:1050px){.hero-layout,.builder{grid-template-columns:1fr}.hero-visual svg{max-height:32vh}.path-grid{grid-template-columns:1fr 1fr}.body{justify-content:flex-start}.slide{padding:18px 22px 24px}}
+@media(max-width:760px){.topbar{flex-wrap:wrap}.brand{width:100%;justify-content:center}.modebar{flex:1;justify-content:center}.top-actions{justify-content:center}.cols-2,.compare,.story-card,.result-grid,.followups,.speech-compare,.rubric,.challenge-list,.deliverable-map,.bank-builder{grid-template-columns:1fr}.duel-layout{grid-template-columns:1fr}.duel-vs{text-align:center}.closing{grid-template-columns:repeat(2,1fr)}.star-flow,.advanced-prompt-flow,.iteration-flow,.organise-flow{align-items:stretch}.star-flow i,.iteration-flow i,.organise-flow i{transform:rotate(0deg);font-size:25px}.slide{padding:16px 14px 22px}.heading h1{font-size:clamp(26px,6vw,42px)}.navbar{height:auto;flex-wrap:wrap}.nav-center{order:3;flex-basis:100%;max-width:none}.navbar button{padding:7px 11px}.body p,.body li{font-size:17px}}
+@media(max-height:780px){.body{justify-content:flex-start}.slide{padding-top:13px;padding-bottom:16px}.heading{margin-bottom:8px}.hero-visual svg{max-height:34vh}.panel{padding:14px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+body.mode-study .slide{background:linear-gradient(120deg,#f7fbfd,#fff 60%,#f1f9f8)}
+body.mode-trainer .slide{background:linear-gradient(120deg,#fffaf0,#fff 60%,#f2f9f8)}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="topbar">
+<div class="brand"><span class="brand-mark">GH</span><span>GET HIRED · MODULE 03</span></div>
+<div aria-label="أوضاع العرض" class="modebar" role="group">
+<button class="active" data-mode="presentation">العرض</button>
+<button data-mode="study">مذاكرة الطالب</button>
+<button data-mode="trainer">المدرّب</button>
+</div>
+<div class="top-actions"><button id="overview">الفهرس</button><button id="fullscreen">ملء الشاشة</button></div>
+</div>
+<div id="deck">
+<section aria-label="الشريحة 1" class="slide" data-index="0">
+<header><div><span class="mark">01</span><span>GET HIRED · MODULE 03 · MY STORY</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>Prompt Engineering for Interview Preparation</h1><p class="subtitle">من إجابة عامة إلى قصة مهنية حقيقية يمكن الدفاع عنها في المقابلة</p></div>
+<main class="body">
+<div class="hero-layout">
+<div>
+<div class="eyebrow">GET HIRED · MODULE 03 · MY STORY</div>
+<h2 class="hero-title">استخدم <em>ChatGPT</em> لتستعد للمقابلة، لا ليخترع قصتك.</h2>
+<p class="lead">سنستخدم هندسة الأوامر لبناء إجابات سلوكية منظمة بطريقة STAR، ثم نراجعها ونحسنها دون اختلاق تجربة أو نتيجة.</p>
+<div class="tag-row"><span>STAR Method</span><span>Advanced Prompting</span><span>Iterative Refinement</span><span>Interview Preparation</span></div>
+</div>
+<div class="hero-visual">
+<svg aria-label="رسم توضيحي لخريج يستعد لمقابلة عمل أمام شاشة تتضمن مراحل STAR" role="img" viewbox="0 0 560 360">
+<defs><lineargradient id="g1" x1="0" x2="1"><stop stop-color="#dff5f1"></stop><stop offset="1" stop-color="#eaf2ff"></stop></lineargradient></defs>
+<rect fill="url(#g1)" height="340" rx="28" width="540" x="10" y="10"></rect>
+<rect fill="#fff" height="170" rx="18" stroke="#9bcfca" stroke-width="3" width="220" x="286" y="56"></rect>
+<rect fill="#e8f7f4" height="30" rx="8" width="176" x="308" y="80"></rect>
+<text fill="#087f78" font-size="17" font-weight="bold" text-anchor="middle" x="396" y="101">INTERVIEW STORY</text>
+<g font-size="17" font-weight="bold" text-anchor="middle">
+<rect fill="#dcecff" height="34" rx="8" width="76" x="310" y="126"></rect><text fill="#245f91" x="348" y="149">S</text>
+<rect fill="#e3f5e8" height="34" rx="8" width="76" x="402" y="126"></rect><text fill="#32734a" x="440" y="149">T</text>
+<rect fill="#fff0d8" height="34" rx="8" width="76" x="310" y="172"></rect><text fill="#96610d" x="348" y="195">A</text>
+<rect fill="#eee9ff" height="34" rx="8" width="76" x="402" y="172"></rect><text fill="#6850aa" x="440" y="195">R</text>
+</g>
+<circle cx="168" cy="124" fill="#f2c9a7" r="48"></circle>
+<path d="M120 120 Q128 55 183 72 Q216 85 211 127 Q194 98 165 100 Q145 100 120 120" fill="#173c52"></path>
+<path d="M90 290 Q92 190 168 188 Q244 190 248 290Z" fill="#0b8d86"></path>
+<path d="M134 195 L168 238 L201 195" fill="#fff"></path>
+<rect fill="#0a5364" height="13" rx="6" width="102" x="118" y="290"></rect>
+<path d="M255 248 Q270 238 282 250" fill="none" stroke="#0a8d86" stroke-linecap="round" stroke-width="5"></path>
+<circle cx="270" cy="248" fill="#0a8d86" r="7"></circle>
+<text fill="#466b79" font-size="16" text-anchor="middle" x="280" y="326">YOUR EXPERIENCE · YOUR EVIDENCE</text>
+</svg>
+<div class="visual-caption">AI يساعدك على تنظيم القصة؛ أنت مصدر الوقائع وصاحب القرار.</div>
+</div>
+</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> الفكرة المحورية في هذه الوحدة: لا نطلب من ChatGPT أن يصنع خبرة غير موجودة. نستخدمه لتحديد ما يستحق أن نحكيه، وتنظيمه، وصياغته بوضوح، ثم نتحقق من كل تفصيل.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> ابدأ بسؤال: ما الفرق بين إجابة تبدو احترافية وإجابة يستطيع صاحبها الدفاع عنها عند سؤال المتابعة؟</div>
+</main>
+</section><section aria-label="الشريحة 2" class="slide" data-index="1">
+<header><div><span class="mark">02</span><span>GET HIRED · MODULE 03 · MY STORY</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>ما الذي سنبنيه في هذه الوحدة؟</h1><p class="subtitle">ننتقل من فهم STAR إلى هندسة Prompt متقدمة ثم إلى التحسين والمقارنة</p></div>
+<main class="body">
+<div class="path-grid">
+<div class="path-card"><b>01 · Structure</b><h3>بناء القصة</h3><p>تحويل موقف حقيقي إلى Situation, Task, Action, Result.</p></div>
+<div class="path-card"><b>02 · Prompt</b><h3>توجيه ChatGPT</h3><p>استخدام Role + Context + Tone + Format + Constraint.</p></div>
+<div class="path-card"><b>03 · Evaluate</b><h3>تقييم الناتج</h3><p>مقارنة اقتراح AI بالتجربة الشخصية وكشف التفاصيل الناقصة.</p></div>
+<div class="path-card"><b>04 · Improve</b><h3>التحسين التكراري</h3><p>تعديل الطلب وحفظ المخرجات وتنظيم بنك الأسئلة والأوامر.</p></div>
+</div>
+<div class="callout">المخرج الذي يخص AI Tools في هذه الجلسة: <strong>AI-refined interview prompt bank (at least 5 prompts saved)</strong>.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> توجد مخرجات أخرى في نهاية يوم MY STORY، لكنها ليست جميعًا مخرجات AI Tools. سنفصل بينها في نهاية العرض.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> أكد أن الجلسة ليست دورة مقابلات كاملة؛ إنها جلسة توظيف ChatGPT وهندسة الأوامر لخدمة التحضير للمقابلة.</div>
+</main>
+</section><section aria-label="الشريحة 3" class="slide" data-index="2">
+<header><div><span class="mark">03</span><span>GET HIRED · MODULE 03 · MY STORY</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>ما الذي يجب أن يستطيع الطالب فعله؟</h1><p class="subtitle">أهداف قابلة للملاحظة وليست مجرد عناوين</p></div>
+<main class="body">
+<div class="outcome-list">
+<div><span>01</span><section><b>يفكك إجابة سلوكية</b><p>يحدد Situation وTask وAction وResult ويكشف الجزء الضعيف.</p></section></div>
+<div><span>02</span><section><b>يبني Prompt متقدمًا</b><p>يستخدم Role + Context + Tone + Format + Constraint وفق هدف محدد.</p></section></div>
+<div><span>03</span><section><b>يقيّم إجابة AI</b><p>يفصل بين البنية المفيدة والتفاصيل الشخصية التي لا يعرفها النموذج.</p></section></div>
+<div><span>04</span><section><b>يحسّن الأمر على مراحل</b><p>يكتب Follow-up Prompts أكثر تحديدًا بدل إعادة الطلب نفسه.</p></section></div>
+<div><span>05</span><section><b>ينظم بنك التحضير</b><p>يحفظ خمسة Prompts على الأقل ويصنفها حسب نوع السؤال أو الكفاءة.</p></section></div>
+</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> الأهداف الأربعة الأولى مشتقة من موضوعات AI TOOLS SESSION في المصدر. الهدف الخامس يترجم مخرج حفظ خمسة Prompts إلى سلوك يمكن ملاحظته.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من الطلاب في نهاية الوحدة تقديم دليل عملي على كل هدف: بطاقة STAR، Prompt، مراجعة، وملف محفوظ.</div>
+</main>
+</section><section aria-label="الشريحة 4" class="slide" data-index="3">
+<header><div><span class="mark">04</span><span>GET HIRED · MODULE 03 · MY STORY</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>لماذا يتذكر أصحاب العمل القصص؟</h1><p class="subtitle">المقابلة السلوكية تبحث عن دليل على السلوك، لا عن صفات محفوظة</p></div>
+<main class="body">
+<div class="cols-2">
+<div class="quote-panel weak"><label>ادعاء عام</label><h3>“I am a good problem solver.”</h3><p>أنا أجيد حل المشكلات.</p><ul><li>لا يوجد موقف محدد.</li><li>لا نعرف ما الذي فعله المرشح.</li><li>لا يوجد دليل على النتيجة.</li></ul></div>
+<div class="quote-panel strong"><label>قصة قابلة للفحص</label><h3>“During a university project, I…”</h3><p>خلال مشروع جامعي، واجهتُ موقفًا محددًا واتخذت إجراءً واضحًا وظهرت نتيجة يمكن شرحها.</p><ul><li>سياق محدد.</li><li>دور ومسؤولية واضحة.</li><li>أفعال ونتائج يمكن مناقشتها.</li></ul></div>
+</div>
+<div class="callout">الهدف ليس تضخيم الإنجاز؛ الهدف أن تجعل ما حدث فعلًا واضحًا وقابلًا للفهم.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> قد تكون القصة من مشروع جامعي أو نشاط تطوعي أو تدريب أو عمل جزئي أو مسؤولية شخصية مناسبة. لا يشترط أن تكون خبرة وظيفية رسمية.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اسأل: إذا قلت «أنا قائد جيد»، ما السؤال الطبيعي الذي سيطرحه المحاور ليطلب دليلًا؟</div>
+</main>
+</section><section aria-label="الشريحة 5" class="slide" data-index="4">
+<header><div><span class="mark">05</span><span>GET HIRED · MODULE 03 · MY STORY</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>STAR Method — الهيكل الذي ينظم القصة</h1><p class="subtitle">أربعة أجزاء تؤدي أربع وظائف مختلفة</p></div>
+<main class="body">
+<div aria-label="STAR flow right to left" class="star-flow">
+<div class="star-node s"><b>S</b><strong>Situation</strong><span>الموقف</span><small>ما السياق؟</small></div><i>←</i>
+<div class="star-node t"><b>T</b><strong>Task</strong><span>المهمة</span><small>ما مسؤوليتك؟</small></div><i>←</i>
+<div class="star-node a"><b>A</b><strong>Action</strong><span>الإجراء</span><small>ماذا فعلت أنت؟</small></div><i>←</i>
+<div class="star-node r"><b>R</b><strong>Result</strong><span>النتيجة</span><small>ماذا تغيّر؟</small></div>
+</div>
+<div class="callout">ترتيب القراءة في هذا المخطط من اليمين إلى اليسار: S ثم T ثم A ثم R. لا تعكس الأسهم أو مواضع الأرقام.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> STAR إطار لتنظيم إجابة سلوكية، وليس قالبًا جامدًا يفرض طولًا متساويًا لكل جزء. غالبًا يحتاج Action إلى مساحة كافية لأن المحاور يريد فهم مساهمتك.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من المجموعة قراءة التسلسل بصوت واضح، ثم أعطهم إجابة قصيرة واطلب تحديد أجزاء STAR.</div>
+</main>
+</section><section aria-label="الشريحة 6" class="slide" data-index="5">
+<header><div><span class="mark">06</span><span>GET HIRED · MODULE 03 · MY STORY</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>S — Situation | الموقف</h1><p class="subtitle">ضع المحاور داخل المشهد دون إغراقه في الخلفية</p></div>
+<main class="body">
+<div class="cols-2">
+<div class="panel"><h3>ما الذي نحتاجه؟</h3><ul><li>متى أو في أي سياق حدث الموقف؟</li><li>من الأطراف المعنية؟</li><li>ما التحدي أو الظرف الذي جعل الموقف مهمًا؟</li></ul></div>
+<div class="panel mint"><h3>ما الذي لا نحتاجه؟</h3><ul><li>تاريخًا طويلًا لا يخدم السؤال.</li><li>تفاصيل لا تؤثر في فهم المشكلة.</li><li>مقدمة عامة مثل «منذ طفولتي أحب العمل الجماعي».</li></ul></div>
+</div>
+<div class="example-line"><b>مثال:</b> “During a university group project, our team had two days left to prepare a sales analysis presentation, but the source data was inconsistent.”</div>
+<p class="translation">خلال مشروع جامعي جماعي، تبقى يومان على عرض تحليل المبيعات، لكن بيانات المصدر كانت غير متسقة.</p>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> يجب أن يستطيع الطالب تلخيص الموقف في جملتين تقريبًا، لكن لا نجعل عدد الجمل قاعدة رسمية. المطلوب هو السياق الكافي لفهم التحدي.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اسأل: ما المعلومة التي يحتاجها المحاور كي يفهم سبب صعوبة الموقف؟</div>
+</main>
+</section><section aria-label="الشريحة 7" class="slide" data-index="6">
+<header><div><span class="mark">07</span><span>GET HIRED · MODULE 03 · MY STORY</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>T — Task | المهمة أو المسؤولية</h1><p class="subtitle">ميّز بين ما كان مطلوبًا من الفريق وما كان مطلوبًا منك</p></div>
+<main class="body">
+<div class="compare">
+<div class="compare-box"><label>Team Goal</label><h3>هدف الفريق</h3><p>Prepare a clear sales analysis presentation.</p><small>إعداد عرض واضح لتحليل المبيعات.</small></div>
+<div class="compare-box accent"><label>My Responsibility</label><h3>مسؤوليتي</h3><p>Check inconsistent entries and organise the summary table.</p><small>فحص السجلات غير المتسقة وتنظيم جدول الملخص.</small></div>
+</div>
+<div class="callout">إذا لم تشرح مسؤوليتك، فلن يستطيع المحاور تمييز مساهمتك عن عمل بقية الفريق.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> Task ليس تكرارًا للمشكلة. إنه يحدد المطلوب منك أو الجزء الذي تحملت مسؤوليته.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من الطلاب إعادة صياغة المثال بصيغة: «كان هدف الفريق… أما مسؤوليتي فكانت…».</div>
+</main>
+</section><section aria-label="الشريحة 8" class="slide" data-index="7">
+<header><div><span class="mark">08</span><span>GET HIRED · MODULE 03 · MY STORY</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>A — Action | الإجراء</h1><p class="subtitle">هذا غالبًا أهم جزء: ماذا فعلت أنت بالتحديد؟</p></div>
+<main class="body">
+<div class="action-ladder">
+<div><b>عام جدًا</b><p>“I worked hard and helped the team.”</p><small>عملت بجد وساعدت الفريق.</small></div>
+<div><b>أوضح</b><p>“I reviewed the spreadsheet and corrected missing entries.”</p><small>راجعت الجدول وصححت السجلات الناقصة.</small></div>
+<div><b>أقوى وأكثر قابلية للفحص</b><p>“I compared the source rows, flagged duplicates, confirmed uncertain values with my teammate, and rebuilt the summary table.”</p><small>قارنت السجلات الأصلية، وحددت التكرارات، وتحققت من القيم غير الواضحة مع زميلي، ثم أعدت بناء جدول الملخص.</small></div>
+</div>
+<div class="callout">استخدم أفعالًا محددة بصيغة المتكلم: I checked · I compared · I organised · I clarified · I tested.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> Action لا يعني استخدام أكبر عدد من الأفعال. يعني إظهار خطواتك وقراراتك ومساهمتك. إذا كان العمل جماعيًا، استخدم I لما فعلته أنت وWe لما أنجزه الفريق.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اسأل: ما الفرق بين «ساعدت الفريق» وبين «قارنت السجلات وحددت التكرارات»؟</div>
+</main>
+</section><section aria-label="الشريحة 9" class="slide" data-index="8">
+<header><div><span class="mark">09</span><span>GET HIRED · MODULE 03 · MY STORY</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>R — Result | النتيجة</h1><p class="subtitle">ما الذي حدث بسبب الإجراء؟ وما الدليل المتاح؟</p></div>
+<main class="body">
+<div class="result-grid">
+<div class="result-card"><b>نتيجة رقمية</b><p>أرقام موثقة من تجربة حقيقية.</p><small>Example: reduced review time by 20% — فقط إذا كان القياس حقيقيًا.</small></div>
+<div class="result-card"><b>نتيجة نوعية</b><p>تحسن في الوضوح أو التنظيم أو التنسيق.</p><small>Example: the team delivered a consistent summary.</small></div>
+<div class="result-card"><b>تعلم أو أثر</b><p>ما الذي تعلمته أو ستفعله بشكل مختلف؟</p><small>Example: I learned to validate source data before summarising it.</small></div>
+</div>
+<div class="callout warning">لا تخترع نسبة أو نتيجة كي تبدو القصة أقوى. إذا لم توجد أرقام، اذكر النتيجة النوعية بوضوح.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> النتيجة ليست بالضرورة فوزًا أو نجاحًا مثاليًا. يمكن أن تكون تعلمًا أو تحسنًا جزئيًا أو طريقة أفضل للتعامل مع المشكلة في المرة التالية.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من الطلاب التمييز بين «أكملنا العرض» و«أكملنا العرض بجدول متسق، وتعلمت ضرورة فحص المصدر قبل التلخيص».</div>
+</main>
+</section><section aria-label="الشريحة 10" class="slide" data-index="9">
+<header><div><span class="mark">10</span><span>GET HIRED · MODULE 03 · MY STORY</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>مثال كامل: إجابة STAR قابلة للمراجعة</h1><p class="subtitle">حالة تدريبية افتراضية — لا تنسب هذه التجربة إلى نفسك</p></div>
+<main class="body">
+<div class="story-card">
+<div><b class="s-label">S · Situation</b><p>During a university group project, our team had two days to prepare a sales analysis presentation, but the spreadsheet contained inconsistent entries.</p></div>
+<div><b class="t-label">T · Task</b><p>I was responsible for checking the records and preparing a reliable summary table for the team.</p></div>
+<div><b class="a-label">A · Action</b><p>I compared the source rows, flagged duplicates, checked unclear values with my teammate, and reorganised the summary table.</p></div>
+<div><b class="r-label">R · Result</b><p>We delivered a more consistent presentation on time. I learned to validate source information before drawing conclusions.</p></div>
+</div>
+<div class="callout">هذا مثال تعليمي مصطنع. على الطالب استبدال تفاصيله بتجربة حقيقية أو اختيار موقف آخر يناسبه.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> ناقش مع الطلاب ما الذي يجعل المثال قابلًا للدفاع عنه: تفاصيل محددة، مسؤولية واضحة، أفعال قابلة للتفسير، ونتيجة لا تدعي أرقامًا غير موجودة.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من طالب تحديد جملة Action وشرح لماذا هي أكثر أهمية من عبارة «I am hardworking».</div>
+</main>
+</section><section aria-label="الشريحة 11" class="slide" data-index="10">
+<header><div><span class="mark">11</span><span>GET HIRED · MODULE 03 · MY STORY</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>أخطاء STAR الشائعة</h1><p class="subtitle">أخطاء تجعل القصة طويلة أو غامضة أو غير موثوقة</p></div>
+<main class="body">
+<div class="mistake-grid">
+<div><b>Situation أطول من اللازم</b><p>خلفية كثيرة تؤخر الوصول إلى الفعل.</p><span>الحل: احتفظ فقط بالسياق الضروري.</span></div>
+<div><b>Task غير واضح</b><p>المحاور لا يعرف مسؤوليتك الشخصية.</p><span>الحل: صرّح بدورك أو المطلوب منك.</span></div>
+<div><b>Action عام أو جماعي فقط</b><p>«فعلنا» دون توضيح ما فعلته أنت.</p><span>الحل: اذكر أفعالك المحددة بضمير I.</span></div>
+<div><b>Result غير موجود أو مبالغ فيه</b><p>لا يوجد أثر، أو توجد أرقام مخترعة.</p><span>الحل: استخدم دليلًا حقيقيًا أو تعلمًا واضحًا.</span></div>
+</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> لا تعاقب الطالب على عدم امتلاك إنجاز كبير. قيّم وضوح السرد وصدق المعلومات وملاءمة القصة للسؤال.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> استخدم الأخطاء الأربعة كقائمة مراجعة في كل بطاقة STAR.</div>
+</main>
+</section><section aria-label="الشريحة 12" class="slide" data-index="11">
+<header><div><span class="mark">12</span><span>GET HIRED · MODULE 03 · MY STORY</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>كيف نختار القصة المناسبة للسؤال؟</h1><p class="subtitle">ليست كل تجربة مناسبة لكل سؤال سلوكي</p></div>
+<main class="body">
+<div class="question-map">
+<div><b>Worked under pressure</b><p>موعد ضيق، أولويات متعارضة، أو ظرف تغيّر بسرعة.</p></div>
+<div><b>Teamwork</b><p>تنسيق أدوار، اختلاف وجهات نظر، أو دعم زميل.</p></div>
+<div><b>Problem solving</b><p>مشكلة واضحة، تحليل خيارات، وتجربة حل.</p></div>
+<div><b>Learning from failure</b><p>خطأ أو نتيجة غير مرضية، وما الذي تغير بعد ذلك.</p></div>
+<div><b>Taking initiative</b><p>ملاحظة حاجة والتحرك دون انتظار تعليمات تفصيلية.</p></div>
+</div>
+<div class="callout">اختر القصة التي تحتوي دليلًا على الكفاءة المطلوبة، لا القصة الأكثر درامية.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> يمكن للطالب بناء Story Bank من تجارب الجامعة والتطوع والأنشطة والمشاريع الشخصية. لا يحتاج إلى اختلاق خبرة وظيفية.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من الطلاب وصل سؤال سلوكي بكفاءة مناسبة ثم تحديد تجربة حقيقية يمكن أن تدعمها.</div>
+</main>
+</section><section aria-label="الشريحة 13" class="slide" data-index="12">
+<header><div><span class="mark">13</span><span>GET HIRED · MODULE 03 · MY STORY</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>لماذا نستخدم ChatGPT في التحضير؟</h1><p class="subtitle">مساعد في البناء والتدريب، وليس صاحب التجربة</p></div>
+<main class="body">
+<div class="cols-2">
+<div class="panel mint"><h3>يمكنه المساعدة في</h3><ul><li>اقتراح هيكل STAR.</li><li>إظهار أسئلة متابعة محتملة.</li><li>تحسين الوضوح والترتيب.</li><li>اقتراح أسئلة سلوكية حسب القطاع.</li><li>تحديد فجوات في الشرح.</li></ul></div>
+<div class="panel gold"><h3>لا يمكنه أن يعرف تلقائيًا</h3><ul><li>ما الذي حدث لك فعلًا.</li><li>ما كانت مسؤوليتك الشخصية.</li><li>هل النتيجة الرقمية صحيحة.</li><li>ما شعرت به أو تعلمته حقيقةً.</li><li>تفاصيل لم تقدمها له.</li></ul></div>
+</div>
+<div class="callout warning">النص السلس ليس دليلًا على أن التجربة حقيقية. أنت مسؤول عن الوقائع التي تستخدمها في المقابلة.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> هذه النقطة تتصل بما تعلمناه في Module 01 عن حدود الثقة في مخرجات AI، لكنها تطبقها هنا على قصة شخصية عالية الأهمية.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اسأل: ما الذي يجب أن يبقى مصدره الطالب، حتى لو صاغ ChatGPT الإجابة؟</div>
+</main>
+</section><section aria-label="الشريحة 14" class="slide" data-index="13">
+<header><div><span class="mark">14</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>Advanced Prompt Anatomy — الصيغة المتقدمة</h1><p class="subtitle">Module 03 يوسّع صيغة Module 01 لتناسب التحضير للمقابلات</p></div>
+<main class="body">
+<div class="advanced-prompt-flow">
+<div class="ap role"><b>ROLE</b><span>الدور</span><small>Interview coach</small></div>
+<div class="ap context"><b>CONTEXT</b><span>السياق</span><small>خبرتي وموقفي والسؤال</small></div>
+<div class="ap tone"><b>TONE</b><span>النبرة</span><small>Professional, natural</small></div>
+<div class="ap format"><b>FORMAT</b><span>الشكل</span><small>STAR answer, 90 words</small></div>
+<div class="ap constraint"><b>CONSTRAINT</b><span>القيد</span><small>No invented facts</small></div>
+</div>
+<div class="callout">التركيبة الرسمية في مصدر Module 03: <strong>Role + Context + Tone + Format + Constraint</strong>.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> هذه صيغة أكثر تحديدًا من Module 01: أضيف Tone لتوجيه طريقة التعبير، وConstraint لتحديد ما يجب الالتزام به أو تجنبه. لا يعني ذلك أن كل Prompt في كل استخدام يحتاج العناصر الخمسة.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> قارنها سريعًا بصيغة Module 01 واسأل الطلاب: لماذا نحتاج Tone وConstraint في إجابة مقابلة؟</div>
+</main>
+</section><section aria-label="الشريحة 15" class="slide" data-index="14">
+<header><div><span class="mark">15</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>ROLE — حدّد نوع المساعدة</h1><p class="subtitle">لا تقل «كن خبيرًا» فقط؛ حدد المهمة التي تريد من الدور دعمها</p></div>
+<main class="body">
+<div class="cols-2">
+<div class="panel"><h3>عام</h3><p class="english" dir="ltr">Act as an expert.</p><p>تصرف كخبير.</p><small>لا يوضح مجال الخبرة أو المهمة.</small></div>
+<div class="panel accent"><h3>محدد</h3><p class="english" dir="ltr">Act as an interview coach who helps fresh graduates structure truthful behavioral answers.</p><p>تصرف كمدرب مقابلات يساعد الخريجين الجدد على تنظيم إجابات سلوكية صادقة.</p></div>
+</div>
+<div class="callout">الدور يحدد زاوية المساعدة، لكنه لا يمنح النموذج معرفة شخصية لم تزوده بها.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> Role هو إطار توجيه للنبرة والمنظور ونوع المساعدة، وليس ضمانًا لخبرة بشرية حقيقية أو اعتماد مهني.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من الطلاب كتابة Role مناسب لسؤال مقابلة لوظيفة محلل بيانات مبتدئ.</div>
+</main>
+</section><section aria-label="الشريحة 16" class="slide" data-index="15">
+<header><div><span class="mark">16</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>CONTEXT — أعطِ معلومات كافية وواقعية</h1><p class="subtitle">السياق الجيد يربط السؤال بخبرتك الفعلية</p></div>
+<main class="body">
+<div class="context-table">
+<div><b>Target role</b><span>Junior Data Analyst</span><small>الوظيفة المستهدفة</small></div>
+<div><b>Experience source</b><span>University group project</span><small>مصدر التجربة</small></div>
+<div><b>Challenge</b><span>Inconsistent spreadsheet records</span><small>التحدي</small></div>
+<div><b>My contribution</b><span>Checked records and rebuilt a summary</span><small>مساهمتي الشخصية</small></div>
+<div><b>Evidence</b><span>Delivered a consistent presentation; no measured percentage</span><small>الدليل المتاح</small></div>
+</div>
+<div class="callout warning">إذا لم تكن تعرف قيمة أو رقمًا، اتركه غير محدد. لا تطلب من AI تخمينه.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> السياق قد يشمل الوظيفة، نوع السؤال، خلفية المرشح، تفاصيل الموقف، دوره، والنتيجة المعروفة. استخدم بيانات تدريبية خيالية في العروض الجماعية، ولا تضع بيانات سرية.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> وضح أن المثال السابق حالة تدريبية افتراضية، وعلى الطلاب استبداله بتفاصيلهم الحقيقية.</div>
+</main>
+</section><section aria-label="الشريحة 17" class="slide" data-index="16">
+<header><div><span class="mark">17</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>TONE — كيف يجب أن تبدو الإجابة؟</h1><p class="subtitle">النبرة المهنية ليست لغة متكلفة أو ادعاءً أكبر من التجربة</p></div>
+<main class="body">
+<div class="tone-spectrum">
+<div class="tone-card"><b>Too casual</b><p>“Yeah, things got messy, so I fixed it.”</p><small>عامية وغير مناسبة لسياق مقابلة رسمي.</small></div>
+<div class="tone-card active"><b>Professional &amp; natural</b><p>“I reviewed the records, clarified inconsistencies, and helped the team prepare a reliable summary.”</p><small>مهنية وواضحة ويمكن شرحها.</small></div>
+<div class="tone-card"><b>Overstated</b><p>“I transformed the entire organisation’s data operations.”</p><small>مبالغة لا يدعمها المثال.</small></div>
+</div>
+<div class="callout">نطلب نبرة واثقة وواقعية، لا لغة متضخمة.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> يمكن تحديد tone مثل professional, natural, concise, confident, respectful. يجب أن تتوافق النبرة مع خبرة الطالب وسياق المقابلة.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اسأل أي صياغة يستطيع الخريج شرحها في سؤال متابعة؟ ولماذا؟</div>
+</main>
+</section><section aria-label="الشريحة 18" class="slide" data-index="17">
+<header><div><span class="mark">18</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>FORMAT — حدد شكل المخرج</h1><p class="subtitle">إذا لم تحدد الشكل، قد تحصل على إجابة طويلة أو غير قابلة للتدرب</p></div>
+<main class="body">
+<div class="format-examples">
+<div><b>Length</b><span>80–120 words</span><small>طول تقريبي</small></div>
+<div><b>Structure</b><span>STAR labels first, then a spoken answer</span><small>الهيكل المطلوب</small></div>
+<div><b>Language</b><span>Clear B1–B2 English</span><small>مستوى اللغة المناسب</small></div>
+<div><b>Use</b><span>Natural spoken response</span><small>إجابة منطوقة لا مقال مكتوب</small></div>
+</div>
+<div class="callout">Format يحول «اكتب إجابة جيدة» إلى مخرج يمكن مراجعته والتدرب عليه.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> مستوى اللغة والطول أمثلة اختيارية قابلة للتعديل، وليست حدودًا رسمية في المصدر. اختر ما يناسب قدرة الطالب ومتطلبات المقابلة.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> أظهر كيف يتغير الناتج إذا طلبت 4 نقاط مقابل إجابة منطوقة قصيرة.</div>
+</main>
+</section><section aria-label="الشريحة 19" class="slide" data-index="18">
+<header><div><span class="mark">19</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>CONSTRAINT — ضع حدودًا تمنع الاختلاق</h1><p class="subtitle">القيد يحدد ما يجب ألا يحدث أثناء تحسين الإجابة</p></div>
+<main class="body">
+<div class="constraint-list">
+<div><b>Do not invent</b><p>لا تخترع أرقامًا أو نتائج أو أدوارًا.</p></div>
+<div><b>Use only provided facts</b><p>استخدم المعلومات التي قدمتها فقط.</p></div>
+<div><b>Flag missing details</b><p>إذا نقصت معلومة، اسألني بدل تخمينها.</p></div>
+<div><b>Keep it speakable</b><p>اجعل اللغة طبيعية يستطيع المرشح قولها وشرحها.</p></div>
+</div>
+<div class="callout warning">Constraint ليس عنصرًا تجميليًا؛ إنه يحدد حدود المخرج ويقلل احتمال أن يقدم الطالب قصة لا يستطيع الدفاع عنها.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> يمكن إضافة قيود مثل: لا تذكر خبرة وظيفية غير موجودة، لا تضف أدوات لم أستخدمها، لا تضف نسبًا غير موثقة، احتفظ بالمصطلحات التي أستطيع شرحها.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من الطلاب اقتراح قيد واحد مهم عند استخدام AI في إعداد CV أو إجابة مقابلة.</div>
+</main>
+</section><section aria-label="الشريحة 20" class="slide" data-index="19">
+<header><div><span class="mark">20</span><span>GET HIRED · MODULE 03 · اعرض Prompt الأصلي أولًا، ثم اسأل الطلاب: ما المعلومات التي لا يعرفها ChatGPT عن هذا الخريج؟</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>Prompt المصدر: توليد إجابة STAR نموذجية</h1><p class="subtitle">نحافظ على المهمة الأصلية ونوضح كيف نستخدمها بأمان</p></div>
+<main class="body"><div class="prompt-wrap"><div class="prompt-label"><span>READY-TO-USE PROMPT</span><button class="copy-btn" data-copy="Act as an interview coach. Generate a STAR answer for a fresh graduate in [field] answering: Tell me about a time you worked under pressure.">نسخ Prompt</button></div><pre class="prompt" dir="ltr">Act as an interview coach. Generate a STAR answer for a fresh graduate in [field] answering: Tell me about a time you worked under pressure.</pre></div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b>
+<div class="translation-box"><b>المعنى بالعربية:</b> تصرف كمدرب مقابلات. أنشئ إجابة نموذجية وفق STAR لخريج جديد في [التخصص] يجيب عن: «حدثني عن مرة عملت فيها تحت ضغط».</div>
+<div class="callout">هذا Prompt المصدر. لا يحتوي وحده على تفاصيل تجربة الطالب؛ لذلك يجب إضافة Context حقيقي وConstraint يمنع اختلاق التجربة.</div>
+</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> نص Prompt محفوظ من PDF Module 03. أضفنا الشرح العربي والتنبيه إلى نقص السياق باعتبارهما دعمًا تعليميًا، لا تعديلًا للنص الأصلي.</div>
+</main>
+</section><section aria-label="الشريحة 21" class="slide" data-index="20">
+<header><div><span class="mark">21</span><span>GET HIRED · MODULE 03 · AI OUTPUT REVIEW</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>كيف نفحص إجابة STAR التي ولّدها AI؟</h1><p class="subtitle">المسودة قد تكون منظمة، لكنها قد تتضمن أفعالًا ونتائج لم تقدمها أنت</p></div>
+<main class="body">
+<div class="story-card">
+<div><b class="s-label">S · Situation</b><p>During a university project, my team had a short deadline to prepare a presentation.</p></div>
+<div><b class="t-label">T · Task</b><p>I was responsible for helping organise the work and keeping the team on track.</p></div>
+<div><b class="a-label">A · Action</b><p>I prioritised tasks, communicated with my teammates, and checked our progress.</p></div>
+<div><b class="r-label">R · Result</b><p>We completed the project on time and learned the importance of planning.</p></div>
+</div>
+<div class="callout warning"><strong>SIMULATED OUTPUT — مخرج توضيحي محاكى، وليس ردًا موثقًا من ChatGPT.</strong> لاحظ أن النص أضاف أفعالًا ونتيجة لم تكن موجودة في Prompt المصدر. لا يجوز للطالب اعتمادها إلا إذا كانت تصف ما حدث فعلًا.</div>
+<div class="cols-2">
+<div class="panel mint"><h3>ما الذي فعله جيدًا؟</h3><ul><li>قسّم الإجابة إلى STAR.</li><li>قدّم صياغة قصيرة ومنظمة.</li><li>استخدم لغة سهلة الفهم.</li></ul></div>
+<div class="panel gold"><h3>ما الذي يجب مراجعته؟</h3><ul><li>هل رتّب الطالب المهام فعلًا؟</li><li>هل تابع التقدم؟</li><li>هل اكتمل المشروع في الموعد؟</li><li>هل تعلّم الفريق هذا الدرس فعلًا؟</li></ul></div>
+</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> لا يكفي أن يطابق النص شكل STAR. يجب فحص مصدر كل ادعاء: هل قدمه الطالب؟ هل هو حقيقة يتذكرها؟ هل توجد أدلة؟ إذا لم يكن مؤكدًا، يُحذف أو يُعاد السؤال عنه.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من الطلاب وضع خط تحت كل فعل ونتيجة في المثال، ثم اسأل: أيها ورد في Prompt الأصلي؟ وأيها أضافه النموذج؟</div>
+</main>
+</section><section aria-label="الشريحة 22" class="slide" data-index="21">
+<header><div><span class="mark">22</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>بناء Prompt متقدم قابل للتعديل</h1><p class="subtitle">املأ العناصر الخمسة ثم أنشئ Prompt مخصصًا لتجربتك</p></div>
+<main class="body">
+<div class="builder">
+<div class="builder-fields">
+<label>ROLE <input id="b-role" value="Act as an interview coach who supports fresh graduates."/></label>
+<label>CONTEXT <textarea id="b-context">I am a recent graduate applying for an entry-level role. My real example is: [describe your actual situation, task, actions, and known result].</textarea></label>
+<label>TONE <input id="b-tone" value="Professional, confident, natural, and honest."/></label>
+<label>FORMAT <input id="b-format" value="Create a concise spoken STAR answer, then show the four STAR parts."/></label>
+<label>CONSTRAINT <textarea id="b-constraint">Use only the facts I provide. Do not invent achievements, numbers, responsibilities, tools, or outcomes. Ask questions when important details are missing.</textarea></label>
+<button class="primary-btn" id="build-prompt">إنشاء Prompt</button>
+</div>
+<div class="builder-output"><div class="prompt-label"><span>YOUR GENERATED PROMPT</span><button class="copy-btn" id="copy-built">نسخ</button></div><pre dir="ltr" id="built-prompt">املأ الحقول ثم اضغط «إنشاء Prompt».</pre></div>
+</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> يمكن للطالب تعديل كل حقل. يفضّل أن يكتب سياقًا حقيقيًا أو يستخدم حالة افتراضية معلنة أثناء التدريب الجماعي.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> راقب ألا ينسخ الطلاب المثال الافتراضي ويقدموه كتجربة شخصية. اطلب منهم تحديد ما يحتاج إلى استبدال قبل الضغط على إنشاء.</div>
+</main>
+</section><section aria-label="الشريحة 23" class="slide" data-index="22">
+<header><div><span class="mark">23</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>كيف نقارن ناتج AI بإجابتنا الشخصية؟</h1><p class="subtitle">لا نسأل: هل AI كتب بشكل أجمل؟ بل: هل ساعد في التعبير عن الحقيقة؟</p></div>
+<main class="body">
+<div class="evaluation-grid">
+<div><b>Structure</b><p>هل يمكن تمييز S/T/A/R بوضوح؟</p></div>
+<div><b>Specificity</b><p>هل الأفعال محددة أم عامة؟</p></div>
+<div><b>Authenticity</b><p>هل تعكس الإجابة ما حدث فعلًا؟</p></div>
+<div><b>Evidence</b><p>هل النتيجة مدعومة أم مخترعة؟</p></div>
+<div><b>Speakability</b><p>هل يستطيع الطالب قولها بطبيعية؟</p></div>
+</div>
+<div class="callout">قد يكون ناتج AI منظمًا لغويًا لكنه أضعف من إجابة الطالب الأصلية إذا أزال التفاصيل الشخصية أو أضاف ادعاءات غير صحيحة.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> المقارنة ليست منافسة بين الإنسان والآلة. نستخدم AI لتحسين الهيكل والوضوح، ونحتفظ بالتفاصيل الحقيقية والحكم البشري.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من الطلاب تحديد معيارين يمكن أن يتفوق فيهما AI ومعيارين يجب أن يبقى الحكم فيهما لصاحب التجربة.</div>
+</main>
+</section><section aria-label="الشريحة 24" class="slide" data-index="23">
+<header><div><span class="mark">24</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>ما الذي يفعله AI جيدًا؟ وما الذي قد يفوته؟</h1><p class="subtitle">مقارنة عملية بين المساعدة اللغوية والملكية الشخصية للتجربة</p></div>
+<main class="body">
+<div class="cols-2">
+<div class="panel mint"><h3>AI may help with</h3><ul><li>تنظيم الإجابة إلى STAR.</li><li>تقليل التكرار والإطالة.</li><li>اقتراح أفعال أو صياغات أوضح.</li><li>اقتراح أسئلة متابعة للتدرب.</li><li>إظهار فجوات منطقية في السرد.</li></ul></div>
+<div class="panel gold"><h3>AI may miss</h3><ul><li>تفاصيل صغيرة تجعل القصة شخصية.</li><li>المعنى الحقيقي لدور الطالب.</li><li>سياقًا ثقافيًا أو عاطفيًا مهمًا.</li><li>النتيجة التي لم يذكرها الطالب.</li><li>حدود ما يستطيع الطالب شرحه شفهيًا.</li></ul></div>
+</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> إذا كتب النموذج إجابة عامة، لا يعني ذلك أن التجربة نفسها عامة؛ قد يعني أن الـContext غير كافٍ. اسأل الطالب عن التفاصيل بدل السماح للنموذج بتخمينها.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> استخدم هذه الشريحة قبل نشاط المقارنة حتى يعرف الطلاب ما الذي يبحثون عنه.</div>
+</main>
+</section><section aria-label="الشريحة 25" class="slide" data-index="24">
+<header><div><span class="mark">25</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>Iterative Prompting — لا تتوقف عند أول إجابة</h1><p class="subtitle">التحسين عملية متتابعة: لاحظ، حدّد، اطلب، ثم افحص</p></div>
+<main class="body">
+<div class="iteration-flow">
+<div><b>01 · Draft</b><span>احصل على مسودة أولى</span></div><i>←</i>
+<div><b>02 · Diagnose</b><span>حدد موضع الضعف</span></div><i>←</i>
+<div><b>03 · Refine</b><span>اكتب متابعة محددة</span></div><i>←</i>
+<div><b>04 · Verify</b><span>راجع الدقة والصدق</span></div>
+</div>
+<div class="callout">«Make it better» طلب غامض. «Make the Action section more specific using only the actions I described» طلب قابل للتنفيذ والتقييم.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> لا نكرر Prompt كاملًا كل مرة إذا كانت المشكلة محددة. نوجه متابعة تركز على عنصر واحد ونقارن أثر التعديل.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> نفذ أمام الطلاب جولة تحسين واحدة، ثم اطلب منهم توقع ما الذي سيتغير قبل إظهار الناتج.</div>
+</main>
+</section><section aria-label="الشريحة 26" class="slide" data-index="25">
+<header><div><span class="mark">26</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>سلسلة Follow-up Prompts</h1><p class="subtitle">أوامر متابعة أكثر تحديدًا من عبارة «حسّن الإجابة»</p></div>
+<main class="body">
+<div class="followups">
+<div><b>01 · Clarify</b><p dir="ltr">Ask me 3 questions to clarify my personal role before rewriting the answer.</p><small>اسألني ثلاثة أسئلة لتوضيح دوري قبل إعادة الصياغة.</small></div>
+<div><b>02 · Strengthen Action</b><p dir="ltr">Make the Action section more specific using only the actions I described.</p><small>اجعل جزء الإجراء أكثر تحديدًا باستخدام أفعالي المذكورة فقط.</small></div>
+<div><b>03 · Check authenticity</b><p dir="ltr">Highlight any sentence that includes an assumption or an unsupported result.</p><small>حدد أي جملة تتضمن افتراضًا أو نتيجة غير مدعومة.</small></div>
+<div><b>04 · Make it speakable</b><p dir="ltr">Rewrite this as a natural spoken answer while preserving the facts and STAR structure.</p><small>أعد كتابتها كإجابة منطوقة طبيعية مع الحفاظ على الوقائع وهيكل STAR.</small></div>
+</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> هذه Prompts إثرائية مقترحة لتطبيق iterative prompting. ليست اقتباسات حرفية من PDF، لكنها تخدم متطلب refining prompts and the 'make it more specific' chain.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من الطلاب اختيار Follow-up واحد فقط يناسب الخلل الذي اكتشفوه، لا استخدام جميع الأوامر بلا تشخيص.</div>
+</main>
+</section><section aria-label="الشريحة 27" class="slide" data-index="26">
+<header><div><span class="mark">27</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>تحويل النتيجة إلى إجابة يستطيع الطالب قولها</h1><p class="subtitle">المقابلة محادثة شفوية وليست تسليم مقال مكتوب</p></div>
+<main class="body">
+<div class="speech-compare">
+<div class="speech-card"><label>Written-style output</label><p>“The aforementioned circumstances necessitated a comprehensive assessment of data inconsistencies…”</p><small>لغة ثقيلة يصعب قولها طبيعيًا.</small></div>
+<div class="speech-card good"><label>Spoken-style answer</label><p>“We had a short deadline, and some records did not match. I checked the rows, flagged duplicates, and discussed unclear values with my teammate.”</p><small>لغة واضحة وقابلة للنطق والشرح.</small></div>
+</div>
+<div class="callout">لا تحفظ إجابة لا تفهمها. تدرب على تسلسل الفكرة، لا على ترديد نص حرفي.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> الهدف من التدريب أن يستطيع الطالب التحدث بثقة ومرونة والإجابة عن أسئلة المتابعة. يجب أن تكون الصياغة ضمن مستوى اللغة الذي يستطيع استخدامه.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من الطلاب قراءة النسختين ومقارنة سهولة النطق والفهم.</div>
+</main>
+</section><section aria-label="الشريحة 28" class="slide" data-index="27">
+<header><div><span class="mark">28</span><span>GET HIRED · MODULE 03 · وضح الفرق بين «10 أسئلة شائعة» بوصفها اقتراحات تدريبية وبين ادعاء أنها أكثر 10 أسئلة تكرارًا في كل مقابلات القطاع.</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>بناء Question Bank — بنك أسئلة سلوكية</h1><p class="subtitle">استخدم ChatGPT لتوليد أسئلة تدريبية مرتبطة بالقطاع والكفاءة</p></div>
+<main class="body"><div class="prompt-wrap"><div class="prompt-label"><span>READY-TO-USE PROMPT</span><button class="copy-btn" data-copy="What are the 10 most common behavioral interview questions for [sector]?">نسخ Prompt</button></div><pre class="prompt" dir="ltr">What are the 10 most common behavioral interview questions for [sector]?</pre></div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b>
+<div class="translation-box"><b>المعنى:</b> ما أكثر عشرة أسئلة مقابلات سلوكية شيوعًا في [القطاع]؟</div>
+<div class="callout">هذا هو Prompt الوارد في المصدر. يمكن تحسينه بإضافة مستوى الوظيفة والكفاءات المطلوبة، ثم التحقق من أن الأسئلة مناسبة للوظيفة المستهدفة.</div>
+</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> لا نقدم القائمة التي يولدها AI على أنها ترتيب إحصائي مؤكد ما لم تستند إلى مصدر موثوق. الأفضل وصفها بأنها أسئلة تدريبية شائعة أو محتملة، ثم مطابقتها مع وصف الوظيفة.</div>
+</main>
+</section><section aria-label="الشريحة 29" class="slide" data-index="28">
+<header><div><span class="mark">29</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>نظّم بنك الأسئلة حسب الكفاءة</h1><p class="subtitle">بنك الأسئلة الجيد يساعدك على اختيار قصة مناسبة لا حفظ إجابة واحدة</p></div>
+<main class="body">
+<div class="bank-grid">
+<div><b>Problem Solving</b><p>Tell me about a problem you solved.</p><small>حل المشكلات</small></div>
+<div><b>Teamwork</b><p>Describe a time you worked with a difficult team.</p><small>العمل الجماعي</small></div>
+<div><b>Pressure</b><p>Tell me about a time you worked under pressure.</p><small>العمل تحت الضغط</small></div>
+<div><b>Initiative</b><p>Give an example of when you took initiative.</p><small>المبادرة</small></div>
+<div><b>Learning</b><p>Describe a mistake and what you learned.</p><small>التعلم من الخطأ</small></div>
+<div><b>Communication</b><p>Tell me about a time you explained something complex.</p><small>التواصل</small></div>
+</div>
+<div class="callout">يمكن لقصة واحدة حقيقية أن تدعم أكثر من كفاءة، لكن يجب تعديل زاوية الإجابة حسب السؤال.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> هذه أمثلة تعليمية لإظهار طريقة التصنيف، وليست قائمة إحصائية موثقة أو حصرًا لجميع أسئلة المقابلات.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اسأل: هل يمكن استخدام نفس قصة المشروع الجامعي لسؤال العمل تحت الضغط وسؤال حل المشكلات؟ ما الذي يتغير في التركيز؟</div>
+</main>
+</section><section aria-label="الشريحة 30" class="slide" data-index="29">
+<header><div><span class="mark">30</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>Saving &amp; Organising — احفظ ما يفيدك</h1><p class="subtitle">لا تجعل المحادثات الطويلة تتحول إلى نصوص يصعب العثور عليها</p></div>
+<main class="body">
+<div class="organise-flow">
+<div><b>Prompt Library</b><span>الأوامر المحفوظة</span></div><i>←</i>
+<div><b>STAR Stories</b><span>قصصك الحقيقية</span></div><i>←</i>
+<div><b>Question Bank</b><span>الأسئلة حسب الكفاءة</span></div><i>←</i>
+<div><b>Practice Notes</b><span>الملاحظات والتحسينات</span></div>
+</div>
+<div class="folder-example">
+<div>📁 Interview Preparation</div>
+<div class="indent">📄 01_Prompt_Bank</div>
+<div class="indent">📄 02_STAR_Stories</div>
+<div class="indent">📄 03_Question_Bank</div>
+<div class="indent">📄 04_Feedback_and_Revisions</div>
+</div>
+<div class="callout">احفظ Prompt والناتج الذي راجعته، وسجل ما الذي عدلته ولماذا. لا تحفظ كل إجابة مولدة دون فرز.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> طريقة التسمية والمجلدات مثال تنظيمي مقترح، وليست أداة أو منصة محددة يفرضها المصدر. يمكن استخدام ملفات محلية أو مساحة تخزين يوافق عليها الطالب.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اعرض على الطلاب كيف يسمون الملفات بطريقة تجعلها قابلة للبحث لاحقًا.</div>
+</main>
+</section><section aria-label="الشريحة 31" class="slide" data-index="30">
+<header><div><span class="mark">31</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>Guided Practice — المدرّب ينفّذ أمام الطلاب</h1><p class="subtitle">شاهد دورة العمل كاملة قبل أن تبدأ المجموعة</p></div>
+<main class="body">
+<div class="demo-steps">
+<div><b>1</b><section><strong>ابدأ بسؤال المقابلة</strong><p>Tell me about a time you worked under pressure.</p></section></div>
+<div><b>2</b><section><strong>اعرض Prompt المصدر</strong><p>Role + Context + Tone + Format + Constraint.</p></section></div>
+<div><b>3</b><section><strong>افحص المسودة</strong><p>هل التزم STAR؟ ما التفاصيل التي افترضها؟</p></section></div>
+<div><b>4</b><section><strong>اطلب تحسينًا واحدًا</strong><p>اجعل Action أكثر تحديدًا دون إضافة وقائع جديدة.</p></section></div>
+<div><b>5</b><section><strong>قارن واحفظ</strong><p>احتفظ بالنسخة المفيدة ودوّن سبب قبول التعديل.</p></section></div>
+</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> التنفيذ الحي يجب أن يبين المدخل والخطوات والمخرج والتحليل والتحسين. إذا استخدمت حالة افتراضية، صرح بذلك بوضوح.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> لا تكتفِ بلصق Prompt وقبول أول ناتج. فكر بصوت مرتفع: ما الذي أراجعه؟ وما الذي لا أستطيع إثباته؟</div>
+</main>
+</section><section aria-label="الشريحة 32" class="slide" data-index="31">
+<header><div><span class="mark">32</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>Independent Practice — ابنِ إجابتك الأولى</h1><p class="subtitle">استخدم تجربة حقيقية من الدراسة أو العمل أو التطوع</p></div>
+<main class="body">
+<div class="task-panel">
+<div class="task-head"><span>STUDENT TASK 01</span><b>Build a STAR Story</b></div>
+<ol>
+<li>اختر موقفًا حقيقيًا واجهت فيه ضغطًا أو تحديًا.</li>
+<li>اكتب S وT وA وR في نقاط منفصلة.</li>
+<li>ضع علامة على أي تفصيل لا تتذكره بدقة.</li>
+<li>لا تخترع رقمًا أو نتيجة؛ اذكر ما تعرفه فقط.</li>
+<li>اكتب إجابتك الأولية قبل استخدام ChatGPT.</li>
+</ol>
+<div class="evidence">دليل الإنجاز: مسودة STAR أصلية من الطالب، قبل تدخل AI.</div>
+</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> هذه الممارسة تضمن وجود إجابة شخصية للمقارنة، بدل أن يبدأ الطالب من نص AI ثم يظن أنه قصته.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> مر بين المجموعات وساعد الطلاب الذين لا يملكون خبرة وظيفية على اختيار مشروع جامعي أو نشاط أو مسؤولية حقيقية.</div>
+</main>
+</section><section aria-label="الشريحة 33" class="slide" data-index="32">
+<header><div><span class="mark">33</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>AI Practice — حسّن دون اختلاق</h1><p class="subtitle">استخدم ChatGPT لتحسين الوضوح، ثم راجع كل جملة</p></div>
+<main class="body">
+<div class="task-panel">
+<div class="task-head"><span>STUDENT TASK 02</span><b>Refine &amp; Verify</b></div>
+<ol>
+<li>أدخل تفاصيل STAR التي كتبتها بنفسك.</li>
+<li>استخدم Prompt متقدمًا يتضمن العناصر الخمسة.</li>
+<li>قارن الناتج بإجابتك الأصلية.</li>
+<li>حدد جملة مفيدة وجملة تحتاج تصحيحًا أو حذفًا.</li>
+<li>اكتب Follow-up Prompt يعالج ضعفًا واحدًا.</li>
+</ol>
+<div class="evidence">دليل الإنجاز: Original Answer + AI Draft + Revised Answer + سبب تعديل واحد على الأقل.</div>
+</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> لا نقيّم الطلاب على مدى جمال نص AI. نقيّم قدرتهم على استخدامه بوعي، ومراجعة الحقائق، وتخصيص الصياغة.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> إذا لم تتوفر أداة AI، ينفذ الطالب بناء Prompt ومراجعة مسودة تدريبية مطبوعة مع توضيح أنها Simulation.</div>
+</main>
+</section><section aria-label="الشريحة 34" class="slide" data-index="33">
+<header><div><span class="mark">34</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>A03 — Prompt Duel</h1><p class="subtitle">نشاط المصدر الرسمي: زوجان من الأوامر للمهمة نفسها</p></div>
+<main class="body">
+<div class="duel-layout">
+<div class="duel-card"><div class="duel-label">PROMPT A</div><h3>طلب عام</h3><p dir="ltr">Generate a good STAR answer for a graduate under pressure.</p><small>لا يحدد تفاصيل المرشح أو النبرة أو شكل المخرج أو القيود.</small></div>
+<div class="duel-vs">VS</div>
+<div class="duel-card winner"><div class="duel-label">PROMPT B</div><h3>طلب محدد</h3><p dir="ltr">Act as an interview coach. Use only the real context I provide. Create a natural 90-second STAR answer, identify missing facts, and do not invent results.</p><small>يحدد الدور والسياق والشكل والقيود، لكنه يحتاج أيضًا إلى تفاصيل واقعية من صاحبه.</small></div>
+</div>
+<div class="callout">المنافسة ليست على طول Prompt؛ الفائز هو الأمر الذي ينتج إجابة أنسب وأكثر قابلية للاستخدام مع الحفاظ على الصدق.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> المصدر يطلب أن يكتب الأزواج Prompts متنافسة للسؤال نفسه، تعرض المخرجات جنبًا إلى جنب، تصوّت Guild على الأكثر فائدة، ثم يشرح الفائز استراتيجية كتابة Prompt.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> نبّه أن المثالين أعلاه نماذج توضيحية للنقاش، ويجب على الطلاب كتابة نسختهم بأنفسهم. لا تصف المخرج الافتراضي على أنه تجربة أداة حقيقية.</div>
+</main>
+</section><section aria-label="الشريحة 35" class="slide" data-index="34">
+<header><div><span class="mark">35</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>طريقة تنفيذ Prompt Duel وتقييمه</h1><p class="subtitle">معايير الحكم على Prompt والناتج معًا</p></div>
+<main class="body">
+<div class="rubric">
+<div><b>Prompt clarity</b><span>هل المهمة محددة؟</span><strong>0–2</strong></div>
+<div><b>Context quality</b><span>هل يحتوي حقائق كافية؟</span><strong>0–2</strong></div>
+<div><b>STAR structure</b><span>هل يطلب بنية مناسبة؟</span><strong>0–2</strong></div>
+<div><b>Authenticity constraint</b><span>هل يمنع اختلاق التجربة؟</span><strong>0–2</strong></div>
+<div><b>Output usability</b><span>هل يمكن قول الإجابة ومراجعتها؟</span><strong>0–2</strong></div>
+</div>
+<div class="callout">المجموع المقترح 10 نقاط تدريبية. هذه Rubric تعليمية من إعداد المدرّب وليست قيمة XP رسمية من المصدر.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> ينبغي مقارنة مخرجات الأوامر على السؤال نفسه وبسياق متقارب. إذا اختلفت المعلومات أو المهمة فلا تكون المقارنة عادلة.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> بعد التصويت، اطلب من الفائز شرح التعديل الذي أحدث أكبر فرق، لا الاكتفاء بقول «Prompt الخاص بي أطول».</div>
+</main>
+</section><section aria-label="الشريحة 36" class="slide" data-index="35">
+<header><div><span class="mark">36</span><span>GET HIRED · MODULE 03 · Prompt Bank</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>ابنِ بنك Prompts قابلًا للاستخدام</h1><p class="subtitle">احفظ خمسة أوامر فعلية، مع غرض واضح لكل أمر</p></div>
+<main class="body">
+<div class="bank-builder">
+<div class="bank-entry"><label>01 · STAR Answer Builder<textarea class="bank-prompt" data-name="STAR Answer Builder">Act as an interview coach. Use my real experience below to create a clear STAR answer. Do not invent facts, results, or responsibilities. Ask questions if information is missing. Context: [paste my real experience].</textarea></label></div>
+<div class="bank-entry"><label>02 · Clarify My Role<textarea class="bank-prompt" data-name="Clarify My Role">Review my story and ask me three focused questions to clarify my personal responsibility and actions. Do not rewrite the answer until I respond.</textarea></label></div>
+<div class="bank-entry"><label>03 · Improve the Action<textarea class="bank-prompt" data-name="Improve the Action">Improve only the Action section using the actions I actually described. Make the steps specific and keep the distinction between my work and the team's work.</textarea></label></div>
+<div class="bank-entry"><label>04 · Authenticity Check<textarea class="bank-prompt" data-name="Authenticity Check">Review this interview answer. Flag every unsupported result, assumption, invented detail, or claim that I may not be able to explain in a follow-up question.</textarea></label></div>
+<div class="bank-entry"><label>05 · Behavioural Question Bank<textarea class="bank-prompt" data-name="Behavioural Question Bank">What are 10 useful behavioural interview practice questions for [sector] and [entry-level role]? Group them by competency and label them as practice suggestions, not a verified statistical ranking.</textarea></label></div>
+<div class="bank-actions"><button class="primary-btn" id="save-bank">حفظ الخمسة في بنك الجلسة</button><button class="secondary-btn" id="download-bank">تنزيل بنك Prompts بصيغة TXT</button><span aria-live="polite" id="bank-status">عدّل النصوص لتناسب تجربتك ثم احفظها.</span></div>
+</div>
+<div class="callout">هذه أمثلة تعليمية قابلة للتعديل. يجب أن يضيف الطالب سياقه الحقيقي، وألا يستخدم إجابة جاهزة كأنها تجربة شخصية.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> النصوص الخمسة هنا نقطة بداية عملية. لا يُشترط أن تكون هي الخمسة الوحيدة أو النهائية؛ المهم أن يحفظ الطالب خمسة Prompts على الأقل، وأن يعرف وظيفة كل واحد ومتى يستخدمه. زر الحفظ يجمع محتوى الحقول داخل الجلسة الحالية، وزر التنزيل ينشئ ملفًا يحتفظ به الطالب على جهازه.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من كل طالب تخصيص اثنين على الأقل من الأوامر، ثم حفظ الخمسة وتنزيل الملف. لا تقيّم الطالب على نسخ النصوص الافتراضية دون تعديل.</div>
+</main>
+</section><section aria-label="الشريحة 37" class="slide" data-index="36">
+<header><div><span class="mark">37</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>Challenge — اصنع بنك Prompts للمقابلة</h1><p class="subtitle">المطلوب: خمسة أوامر محفوظة على الأقل ومخصصة للتحضير</p></div>
+<main class="body">
+<div class="challenge-list">
+<div><b>01</b><span>توليد إجابة STAR لسؤال سلوكي</span></div>
+<div><b>02</b><span>توضيح دوري الشخصي في قصة جماعية</span></div>
+<div><b>03</b><span>كشف الافتراضات والنتائج غير المدعومة</span></div>
+<div><b>04</b><span>تحسين الإجابة لتصبح طبيعية ومنطوقة</span></div>
+<div><b>05</b><span>توليد أسئلة سلوكية حسب القطاع والوظيفة</span></div>
+</div>
+<div class="callout">المخرج الرسمي الخاص بجلسة AI: <strong>AI-refined interview prompt bank — at least 5 prompts saved.</strong></div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> يجب أن تكون Prompts محفوظة بالفعل، لا مجرد عناوين. كل Prompt يجب أن يوضح غرضه والحقول التي يجب تخصيصها.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اطلب من كل طالب إظهار خمسة Prompts محفوظة، وشرح متى يستخدم اثنين منها.</div>
+</main>
+</section><section aria-label="الشريحة 38" class="slide" data-index="37">
+<header><div><span class="mark">38</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>مراجعة ذاتية — هل أصبحت مستعدًا؟</h1><p class="subtitle">اختبر قدرتك على التمييز قبل إنهاء العمل</p></div>
+<main class="body">
+<div class="quiz" id="quiz">
+<div class="quiz-q" data-answer="b"><b>1. أي جزء يوضح ما فعلته أنت بالتحديد؟</b><button data-choice="a">Situation</button><button data-choice="b">Action</button><button data-choice="c">Result</button><p class="feedback"></p></div>
+<div class="quiz-q" data-answer="c"><b>2. ما فائدة Constraint في Prompt المقابلة؟</b><button data-choice="a">زيادة طول الإجابة</button><button data-choice="b">إضافة كلمات قوية</button><button data-choice="c">منع اختلاق معلومات وتحديد الحدود</button><p class="feedback"></p></div>
+<div class="quiz-q" data-answer="a"><b>3. إذا أضاف ChatGPT نسبة نجاح لم تذكرها، ماذا تفعل؟</b><button data-choice="a">تحذفها أو تتحقق منها قبل استخدامها</button><button data-choice="b">تستخدمها لأنها تبدو مقنعة</button><button data-choice="c">تتركها دون مراجعة</button><p class="feedback"></p></div>
+</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> الاختبار يقيس المفاهيم الأساسية، وليس مهارة كتابة القصة وحدها. استخدمه كفحص ذاتي ثم ناقش أسباب الإجابات.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اترك الطلاب يجيبون قبل كشف التغذية الراجعة. لا تجعل الاختبار بديلًا عن فحص STAR الفعلي.</div>
+</main>
+</section><section aria-label="الشريحة 39" class="slide" data-index="38">
+<header><div><span class="mark">39</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>كيف ننظم مخرجات يوم MY STORY؟</h1><p class="subtitle">نفصل مخرج AI عن مخرجات Soft Skills وBusiness English</p></div>
+<main class="body">
+<div class="deliverable-map">
+<div class="deliverable ai"><label>AI TOOLS SESSION</label><h3>AI-refined interview prompt bank</h3><p>خمسة Prompts على الأقل محفوظة.</p></div>
+<div class="deliverable soft"><label>COMMUNICATION &amp; SOFT SKILLS</label><h3>STAR Answer Card</h3><p>ثلاث إجابات سلوكية مكتملة مكتوبة.</p></div>
+<div class="deliverable english"><label>BUSINESS ENGLISH</label><h3>60-second “My Challenge” audio</h3><p>إجابة صوتية تستخدم STAR واللغة المهنية.</p></div>
+<div class="deliverable english"><label>BUSINESS ENGLISH</label><h3>Language Journal</h3><p>عشرة أفعال وعبارات جديدة لوصف الخبرة.</p></div>
+</div>
+<div class="callout">هذه المخرجات واردة في DAILY DELIVERABLES &amp; OUTCOMES لليوم؛ لكن مخرج بنك الـPrompts هو المخرج المباشر لجلسة AI Tools.</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> الفصل بين المسارات يمنع نسبة تسجيل الصوت أو مفردات اللغة إلى AI Tools. جلسة AI تدعم الطالب في إعداد المحتوى، لكن تسجيل الصوت وتعلم المفردات يقعان ضمن Business English.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> أكد على الطلاب أن حفظ Prompt Bank لا يعني أن عليهم حفظ إجابات مقابلات مصطنعة.</div>
+</main>
+</section><section aria-label="الشريحة 40" class="slide" data-index="39">
+<header><div><span class="mark">40</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>Take-Home Assignment — من Prompt إلى قصة قابلة للدفاع</h1><p class="subtitle">واجب تراكمي يستخدم ما أنجزته في التدريب</p></div>
+<main class="body">
+<div class="homework">
+<h3>Interview Preparation Pack</h3>
+<ol>
+<li>اختر قصة حقيقية واحدة واكتبها في STAR.</li>
+<li>أرفق Prompt الأصلي ونسخته المحسنة.</li>
+<li>أرفق مسودة AI ثم ضع علامات على أي افتراض أو معلومة تحتاج تحققًا.</li>
+<li>اكتب إجابة نهائية تستطيع قولها شفهيًا دون قراءة حرفية.</li>
+<li>أضف سؤالين للمتابعة تتوقع أن يسألهما المحاور.</li>
+<li>احتفظ بالنسخة في مجلد Interview Preparation مع اسم واضح.</li>
+</ol>
+<div class="homework-evidence"><b>دليل التسليم:</b> STAR Story + Prompt Versions + Review Notes + Final Spoken Answer.</div>
+</div>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> هذا تكليف إثرائي مقترح، وليس مخرجًا رسميًا إضافيًا في PDF. يعتمد على بطاقة STAR التي يتعلمها الطالب وبنك Prompts الذي ينشئه.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> يمكن تقييم الواجب وفق صدق التفاصيل، ووضوح STAR، وجودة Prompt، ودقة المراجعة، وقابلية الإجابة للنطق.</div>
+</main>
+</section><section aria-label="الشريحة 41" class="slide" data-index="40">
+<header><div><span class="mark">41</span><span>GET HIRED · MODULE 03 · AI PROMPT ENGINEERING</span></div><span class="pill">MY STORY</span></header>
+<div class="heading"><h1>الخلاصة: AI يهيئك، لكن قصتك ملكك</h1><p class="subtitle">التحضير الجيد يجمع بين هيكل واضح وتجربة حقيقية ومراجعة واعية</p></div>
+<main class="body">
+<div class="closing">
+<div><b>STAR</b><span>نظم قصتك</span></div>
+<div><b>5-Part Prompt</b><span>وجّه الأداة</span></div>
+<div><b>Iterate</b><span>حسّن بالتدريج</span></div>
+<div><b>Verify</b><span>راجع الوقائع</span></div>
+<div><b>Save</b><span>نظّم بنكك</span></div>
+</div>
+<h2 class="closing-line">لا تحفظ إجابة لا تستطيع شرحها. ابنِ قصة حقيقية تستطيع الدفاع عنها.</h2>
+<div class="study-extra extra-box"><b>للمذاكرة:</b> احتفظ بمخرجاتك وارجع إليها عند التدريب على مقابلات مختلفة. يمكن إعادة استخدام القصة نفسها مع تغيير زاوية التركيز حسب الكفاءة المطلوبة، بشرط عدم تغيير الوقائع.</div>
+<div class="trainer-note"><b>ملاحظة المدرّب:</b> اختم بسؤال انعكاسي: ما التعديل الذي أدخله AI على قصتك وكان مفيدًا؟ وما التفصيل الذي قررت الاحتفاظ بصيغتك الأصلية فيه؟</div>
+</main>
+</section>
+</div>
+<div class="navbar">
+<button id="prev">السابق ←</button>
+<div class="nav-center"><div class="progress"><span id="progress-fill"></span></div><span class="counter" id="counter">01 / 41</span><span id="mode-label">وضع العرض</span></div>
+<button class="primary" id="next">التالي →</button>
+</div>
+</div>
+<div id="overview-panel" style="display:none;position:fixed;inset:7% 5%;z-index:20;background:#fff;border:2px solid #9bcfc9;border-radius:22px;padding:22px;overflow:auto;box-shadow:0 20px 80px #1238">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h2 style="margin:0">فهرس Module 03</h2><button class="primary-btn" id="close-overview">إغلاق</button></div>
+<div id="overview-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:18px"></div>
+</div>
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+let current = 0;
+const counter = document.getElementById('counter');
+const fill = document.getElementById('progress-fill');
+function showSlide(n) {
+  current = Math.max(0, Math.min(slides.length-1, n));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+  counter.textContent = String(current+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+  fill.style.width = ((current+1)/slides.length*100)+'%';
+  document.getElementById('prev').disabled = current===0;
+  document.getElementById('next').disabled = current===slides.length-1;
+  slides[current].scrollTop = 0;
+}
+document.getElementById('prev').addEventListener('click',()=>showSlide(current-1));
+document.getElementById('next').addEventListener('click',()=>showSlide(current+1));
+document.getElementById('fullscreen').addEventListener('click',async()=>{
+  try { if(!document.fullscreenElement) await document.documentElement.requestFullscreen(); else await document.exitFullscreen(); } catch(e) { alert('تعذر تفعيل ملء الشاشة في هذا المتصفح. استخدم اختصار F أو وضع العرض الكامل من المتصفح.'); }
+});
+document.getElementById('overview').addEventListener('click',()=>document.getElementById('overview-panel').style.display='block');
+document.getElementById('close-overview').addEventListener('click',()=>document.getElementById('overview-panel').style.display='none');
+const titles = ["Prompt Engineering for Interview Preparation", "ما الذي سنبنيه في هذه الوحدة؟", "ما الذي يجب أن يستطيع الطالب فعله؟", "لماذا يتذكر أصحاب العمل القصص؟", "STAR Method — الهيكل الذي ينظم القصة", "S — Situation | الموقف", "T — Task | المهمة أو المسؤولية", "A — Action | الإجراء", "R — Result | النتيجة", "مثال كامل: إجابة STAR قابلة للمراجعة", "أخطاء STAR الشائعة", "كيف نختار القصة المناسبة للسؤال؟", "لماذا نستخدم ChatGPT في التحضير؟", "Advanced Prompt Anatomy — الصيغة المتقدمة", "ROLE — حدّد نوع المساعدة", "CONTEXT — أعطِ معلومات كافية وواقعية", "TONE — كيف يجب أن تبدو الإجابة؟", "FORMAT — حدد شكل المخرج", "CONSTRAINT — ضع حدودًا تمنع الاختلاق", "Prompt المصدر: توليد إجابة STAR نموذجية", "كيف نفحص إجابة STAR التي ولّدها AI؟", "بناء Prompt متقدم قابل للتعديل", "كيف نقارن ناتج AI بإجابتنا الشخصية؟", "ما الذي يفعله AI جيدًا؟ وما الذي قد يفوته؟", "Iterative Prompting — لا تتوقف عند أول إجابة", "سلسلة Follow-up Prompts", "تحويل النتيجة إلى إجابة يستطيع الطالب قولها", "بناء Question Bank — بنك أسئلة سلوكية", "نظّم بنك الأسئلة حسب الكفاءة", "Saving & Organising — احفظ ما يفيدك", "Guided Practice — المدرّب ينفّذ أمام الطلاب", "Independent Practice — ابنِ إجابتك الأولى", "AI Practice — حسّن دون اختلاق", "A03 — Prompt Duel", "طريقة تنفيذ Prompt Duel وتقييمه", "ابنِ بنك Prompts قابلًا للاستخدام", "Challenge — اصنع بنك Prompts للمقابلة", "مراجعة ذاتية — هل أصبحت مستعدًا؟", "كيف ننظم مخرجات يوم MY STORY؟", "Take-Home Assignment — من Prompt إلى قصة قابلة للدفاع", "الخلاصة: AI يهيئك، لكن قصتك ملكك"];
+const list = document.getElementById('overview-list');
+titles.forEach((t,i)=>{
+ const b=document.createElement('button'); b.textContent=String(i+1).padStart(2,'0')+' · '+t;
+ b.style.cssText='text-align:right;padding:12px;border:1px solid #c5dfdc;border-radius:12px;background:#f8fcfb;color:#123f53;font-weight:800;cursor:pointer';
+ b.addEventListener('click',()=>{showSlide(i);document.getElementById('overview-panel').style.display='none';});
+ list.appendChild(b);
+});
+document.querySelectorAll('[data-mode]').forEach(btn=>btn.addEventListener('click',()=>{
+ document.body.classList.remove('mode-study','mode-trainer');
+ document.querySelectorAll('[data-mode]').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active');
+ const mode=btn.dataset.mode;
+ if(mode==='study') document.body.classList.add('mode-study');
+ if(mode==='trainer') document.body.classList.add('mode-trainer');
+ document.getElementById('mode-label').textContent=mode==='presentation'?'وضع العرض':mode==='study'?'مذاكرة الطالب':'ملاحظات المدرّب';
+}));
+document.addEventListener('keydown',e=>{
+ const tag=(e.target&&e.target.tagName||'').toLowerCase();
+ if(['input','textarea','select'].includes(tag)) return;
+ if(e.key==='ArrowLeft'||e.key==='PageUp') showSlide(current-1);
+ if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ') {e.preventDefault();showSlide(current+1);}
+ if(e.key==='Home') showSlide(0);
+ if(e.key==='End') showSlide(slides.length-1);
+ if(e.key.toLowerCase()==='f') document.getElementById('fullscreen').click();
+ if(e.key==='Escape') document.getElementById('overview-panel').style.display='none';
+});
+document.addEventListener('click',async e=>{
+ const btn=e.target.closest('[data-copy]');
+ if(btn) {
+   try { await navigator.clipboard.writeText(btn.dataset.copy); btn.textContent='تم النسخ'; setTimeout(()=>btn.textContent='نسخ Prompt',1400); }
+   catch(err) { const ta=document.createElement('textarea');ta.value=btn.dataset.copy;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();btn.textContent='تم النسخ'; }
+ }
+});
+const buildBtn=document.getElementById('build-prompt');
+if(buildBtn) buildBtn.addEventListener('click',()=>{
+ const val=id=>document.getElementById(id).value.trim();
+ const result=`ROLE:\n${val('b-role')}\n\nCONTEXT:\n${val('b-context')}\n\nTONE:\n${val('b-tone')}\n\nFORMAT:\n${val('b-format')}\n\nCONSTRAINT:\n${val('b-constraint')}`;
+ document.getElementById('built-prompt').textContent=result;
+});
+const copyBuilt=document.getElementById('copy-built');
+if(copyBuilt) copyBuilt.addEventListener('click',async()=>{
+ const t=document.getElementById('built-prompt').textContent;
+ try{await navigator.clipboard.writeText(t);copyBuilt.textContent='تم النسخ';}catch(e){copyBuilt.textContent='حدد النص وانسخه';}
+});
+let savedBank=[];
+const saveBank=document.getElementById('save-bank');
+if(saveBank) saveBank.addEventListener('click',()=>{
+ savedBank=[...document.querySelectorAll('.bank-prompt')].map(el=>({name:el.dataset.name||el.closest('label').childNodes[0].textContent.trim(),text:el.value}));
+ document.getElementById('bank-status').textContent=`تم حفظ ${savedBank.length} Prompts داخل جلسة العرض الحالية. نزّل الملف للاحتفاظ بها بعد إغلاق الصفحة.`;
+});
+const downloadBank=document.getElementById('download-bank');
+if(downloadBank) downloadBank.addEventListener('click',()=>{
+ if(!savedBank.length) savedBank=[...document.querySelectorAll('.bank-prompt')].map(el=>({name:el.dataset.name||'Prompt',text:el.value}));
+ const txt=savedBank.map((p,i)=>`${i+1}. ${p.name}\n${p.text}`).join('\n\n------------------------------\n\n');
+ const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+ const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='GET_HIRED_Module03_Interview_Prompt_Bank.txt';a.click();URL.revokeObjectURL(url);
+ document.getElementById('bank-status').textContent='تم تجهيز ملف TXT للتنزيل.';
+});
+document.querySelectorAll('.quiz-q').forEach(q=>{
+ q.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{
+   const correct=btn.dataset.choice===q.dataset.answer;
+   q.querySelectorAll('button').forEach(b=>{b.classList.remove('correct','incorrect');if(b.dataset.choice===q.dataset.answer)b.classList.add('correct');});
+   if(!correct) btn.classList.add('incorrect');
+   q.querySelector('.feedback').textContent=correct?'إجابة صحيحة.':'ليست الإجابة الأدق. راجع الجزء المرتبط بالسؤال ثم حاول تفسير السبب.';
+ }));
+});
+showSlide(0);
+</script>
+</body></html>
