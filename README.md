@@ -1,4 +1,13 @@
-# GET HIRED — Module 03 Package
+# GET HIRED — Module 03: MY STORY
+
+[افتح العرض المحدّث](https://boodybo.github.io/get-hired-module-03-interview-prompt-engineering/) · [فهرس الوحدات 01–15](https://boodybo.github.io/get-hired-module-06-my-digital-presence/modules.html)
+
+النسخة الحالية في `docs/index.html` وتضم 13 شريحة بالصور والحركة وخط Alexandria. اكتب جوابًا بنمط STAR، وقارن بين أمرين للسؤال نفسه، ثم احفظ خمسة أوامر لبروفاتك.
+
+يعمل العرض محليًا عند فتح الملف مباشرة. استخدم الفهرس أو الأسهم للانتقال بين الشرائح.
+
+<details>
+<summary>إرشادات الإصدار السابق وملفاته المساندة</summary>
 
 [فتح العرض التفاعلي](https://boodybo.github.io/get-hired-module-03-interview-prompt-engineering/)
 
@@ -26,3 +35,5 @@ The Prompt Bank Builder collects the five edited prompts during the current brow
 
 ## Important
 Use real student experience in interview stories. The fictional case in the presentation is only a teaching simulation. Never invent achievements, numbers, responsibilities, or employment history.
+
+</details>
